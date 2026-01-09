@@ -2,7 +2,7 @@ name: Daily Rental Scraper
 
 on:
   schedule:
-    - cron: '0 9 * * *'  # Runs at 9:00 AM UTC every day
+    - cron: '0 10 * * *'  # Runs at 10:00 AM UTC every day
   workflow_dispatch:      # Allows you to click a button to run it manually
 
 jobs:
