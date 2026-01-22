@@ -66,6 +66,8 @@ def generate_rental():
     }
 
 def main():
+    def main():
+    print("DEBUG: I AM RUNNING THE NEW VERSION WITH TIMEDELTA") # <--- Add this
     logging.info("Starting Daily Rental Ingestion Job...")
     
     try:
