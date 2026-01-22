@@ -38,21 +38,29 @@ def generate_rental():
 # 1. Generate a random Dublin District (e.g., "Dublin 7")
     district_num = random.randint(1, 24)
     area = f"Dublin {district_num}"
-    
-    # 2. Create a realistic street address
-    # fake.street_address() gives "123 Main St", we append ", Dublin 7"
-    full_address = f"{fake.street_address()}, {area}"
-    
+    street_num = fake.building_number()
+    street_name = fake.street_name()
+    full_address = f"{street_num} {street_name}, {area}"
+       
     # 3. Pick a property type first so it matches title
     p_type = random.choice(PROPERTY_TYPES)
+    beds = fake.random_int(min=1, max=4)
+    base_price = 1000 + (beds * 400) 
+    
+    # Add randomness
+    price = base_price + random.randint(-200, 500)
+    
+    # Generate a random date in the last 6 months
+    days_ago = random.randint(0, 180)
+    date_scraped = datetime.now() - timedelta(days=days_ago)
         
     return {
-        "title": f"{fake.random_int(min=1, max=4)} Bed Apartment in {fake.city()}",
-        "price": fake.random_int(min=1800, max=4500),
-        "beds": fake.random_int(min=1, max=4),
+        "title": full_address,
+        "price": price,
+        "beds": beds,
         "baths": fake.random_int(min=1, max=3),
         "description": fake.text(max_nb_chars=100),
-        "property_type": random.choice(PROPERTY_TYPES),
+        "property_type": p_type,
         "url": f"https://www.daft.ie/{fake.uuid4()}",  # Fake URL
         "ber_rating": random.choice(BER_RATINGS)      # NEW: BER Rating
     }
@@ -62,7 +70,7 @@ def main():
     
     try:
         # Generate 10 to 20 listings
-        num_listings = random.randint(10, 20)
+        num_listings = random.randint(20, 50)
         logging.info(f"Generating {num_listings} new listings...")
 
         data_to_insert = [generate_rental() for _ in range(num_listings)]
