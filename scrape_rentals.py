@@ -5,7 +5,7 @@ import time
 import sys
 from faker import Faker
 from supabase import create_client, Client 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # LOGGING
 logging.basicConfig(
